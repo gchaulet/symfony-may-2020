@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +41,8 @@ class BlogController extends AbstractController
         $posts = $this->session->get('posts');
         $posts[uniqid()] = [
             'title' => 'A random title '. rand(1, 500),
-            'text' => 'Some random text nr '. rand(1,500)
+            'text' => 'Some random text nr '. rand(1,500),
+            'date' => new DateTime()
         ];
         $this->session->set('posts', $posts);
 
