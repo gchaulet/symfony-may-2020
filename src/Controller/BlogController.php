@@ -6,20 +6,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 
+/**
+ * @Route("/blog")
+ */
 class BlogController extends AbstractController
 {
     private $session;
+    private $router;
     
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, RouterInterface $router)
     {
         $this->session = $session;
+        $this->router = $router;
     }
 
     /**
-     * @Route("/{name}", name="blog_index")
+     * @Route("/", name="blog_index")
      */
-    public function index($name)
+    public function index()
     {
         return $this->render('blog/index.html.twig', [
             'posts' => $this->session->get('posts'),
@@ -38,7 +44,7 @@ class BlogController extends AbstractController
         ];
         $this->session->set('posts', $posts);
 
-
+        return $this->redirectToRoute('blog_index');
     }
 
     /**
