@@ -13,6 +13,12 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
+    .cleanupOutputBeforeBuild()
+
+    //.enableBuildNotifications()
+    .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    .enableVersioning(Encore.isProduction())
 
     /*
      * ENTRY CONFIG
@@ -36,11 +42,11 @@ Encore
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    .splitEntryChunks()
+    //.splitEntryChunks()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
+    .disableSingleRuntimeChunk()
 
     /*
      * FEATURE CONFIG
@@ -49,11 +55,8 @@ Encore
      * list of features, see:
      * https://symfony.com/doc/current/frontend.html#adding-more-features
      */
-    .cleanupOutputBeforeBuild()
-    //.enableBuildNotifications()
-    .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    
+  
 
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
