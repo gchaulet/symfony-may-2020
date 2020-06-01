@@ -28,6 +28,7 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
+        "symfony/web-server-bundle": "4.4",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "*"
     },
@@ -37,7 +38,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.4.*"
+        "symfony/web-server-bundle": "4.4"
     },
     "config": {
         "preferred-install": {

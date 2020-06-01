@@ -16,7 +16,7 @@
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/web-server-bundle ###
-/.web-server-pid
+###/.web-server-pid
 ###< symfony/web-server-bundle ###
 node_modules
 
