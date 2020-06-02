@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * @Route("/micro-post")
@@ -19,12 +20,14 @@ class MicroPostController extends AbstractController
     private $em;
     private $microPostRepository;
     private $formFactory;
+    private $flashBag;
 
-    public function __construct(MicroPostRepository $microPostRepository, FormFactoryInterface $formFactory, EntityManagerInterface $em)
+    public function __construct(MicroPostRepository $microPostRepository, FormFactoryInterface $formFactory, EntityManagerInterface $em, FlashBagInterface $flashBag)
     {
         $this->microPostRepository = $microPostRepository;
         $this->formFactory = $formFactory;
         $this->em = $em;
+        $this->flashBag = $flashBag;
     }
     /**
      * @Route("/", name="micro_post_index")
@@ -48,6 +51,8 @@ class MicroPostController extends AbstractController
         {
             $this->em->persist($microPost);
             $this->em->flush();
+            
+            $this->flashBag->add('notice', 'Micro post was edited');
 
             return $this->redirectToRoute('micro_post_index');
         }
@@ -64,6 +69,8 @@ class MicroPostController extends AbstractController
     {
         $this->em->remove($microPost);
         $this->em->flush();
+
+        $this->flashBag->add('notice', 'Micro post was deleted');
 
         return $this->redirectToRoute('micro_post_index');
     }
@@ -82,6 +89,8 @@ class MicroPostController extends AbstractController
         {
             $this->em->persist($microPost);
             $this->em->flush();
+            
+            $this->flashBag->add('notice', 'Micro post was added');
 
             return $this->redirectToRoute('micro_post_index');
         }
